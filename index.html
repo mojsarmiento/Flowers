@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legendary Romantic Bouquet</title>
+
+<style>
+  /* ===== ROMANTIC CARD ===== */
+.card-container{
+  position:absolute;
+  bottom:70px;
+  right:40px;
+  width:180px;
+  height:120px;
+  perspective:1000px;
+  cursor:pointer;
+}
+
+.card-front,
+.card-inside{
+  position:absolute;
+  width:100%;
+  height:200px;
+  border-radius:15px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:15px;
+  backface-visibility:hidden;
+  transition:transform .8s;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+/* front */
+.card-front{
+  background:linear-gradient(135deg,#ff4f8b,#ff7bac);
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+  text-shadow:0 0 8px rgba(255,255,255,.8);
+}
+
+/* inside letter */
+.card-inside{
+  background:rgba(255,255,255,.95);
+  color:#ff2f68;
+  font-size:14px;
+  line-height:1.5;
+  transform:rotateY(180deg);
+}
+
+/* open effect */
+.card-container.open .card-front{
+  transform:rotateY(180deg);
+}
+.card-container.open .card-inside{
+  transform:rotateY(0deg);
+}
+
+.valentine-bottom{
+  position:absolute;
+  bottom:15px;
+  width:100%;
+  text-align:center;
+  font-size:28px;
+  color:white;
+  letter-spacing:2px;
+  text-shadow:0 0 12px rgba(255,255,255,.9);
+  animation:loveGlow 2s infinite alternate;
+}
+
+@keyframes loveGlow{
+  from{opacity:.7;transform:scale(1);}
+  to{opacity:1;transform:scale(1.05);}
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle at top,#ffd9ea,#ff9fc8,#ff5f9e);
+  font-family:Georgia, serif;
+}
+
+/* CINEMATIC INTRO */
+.scene{
+  opacity:0;
+  transform:scale(1.2);
+  animation:intro 2.5s forwards;
+}
+@keyframes intro{to{opacity:1;transform:scale(1);}}
+
+/* glow ambience */
+body::before{
+  content:"";
+  position:absolute;inset:0;
+  background:radial-gradient(circle,rgba(255,255,255,.3),transparent 70%);
+  animation:glow 6s infinite alternate;
+}
+@keyframes glow{from{opacity:.5;}to{opacity:1;}}
+
+/* GLASS PANEL */
+.glass{
+  position:absolute;
+  top:30px;
+  padding:12px 30px;
+  border-radius:25px;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(10px);
+  box-shadow:0 8px 25px rgba(0,0,0,.2);
+}
+
+/* typing text */
+.title{
+  font-size:38px;
+  color:white;
+  white-space:nowrap;
+  overflow:hidden;
+  border-right:3px solid white;
+  width:0;
+  text-shadow:0 0 15px white;
+  animation:typing 5s steps(20,end) forwards, blink .7s infinite;
+}
+@keyframes typing{to{width:320px;}}
+@keyframes blink{50%{border-color:transparent;}}
+
+/* bouquet */
+.bouquet{
+  position:relative;
+  width:430px;height:580px;
+  animation:float 6s infinite ease-in-out;
+  transition:transform .2s;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-18px);}
+}
+
+/* stems */
+.stem{
+  position:absolute;width:6px;height:260px;
+  background:#3f9c63;
+  bottom:95px;left:50%;
+  transform-origin:bottom;
+}
+.s1{transform:translateX(-50%) rotate(0);}
+.s2{transform:translateX(-50%) rotate(-15deg);}
+.s3{transform:translateX(-50%) rotate(15deg);}
+.s4{transform:translateX(-50%) rotate(-30deg);}
+.s5{transform:translateX(-50%) rotate(30deg);}
+.s6{transform:translateX(-50%) rotate(-45deg);}
+.s7{transform:translateX(-50%) rotate(45deg);}
+
+/* BLOOM sequence */
+@keyframes bloom{
+  from{transform:scale(0);}
+  to{transform:scale(1);}
+}
+
+.rose,.tulip{
+  animation:bloom 1s ease forwards;
+}
+.delay1{animation-delay:.5s;}
+.delay2{animation-delay:1s;}
+.delay3{animation-delay:1.5s;}
+.delay4{animation-delay:2s;}
+.delay5{animation-delay:2.5s;}
+.delay6{animation-delay:3s;}
+.delay7{animation-delay:3.5s;}
+
+/* roses */
+.rose{
+  position:absolute;width:90px;height:90px;
+  filter:drop-shadow(0 0 15px rgba(255,40,120,.6));
+}
+.rpetal{
+  position:absolute;width:55px;height:55px;
+  border-radius:60%;
+  background:radial-gradient(circle,#ffb3cc,#ff266d);
+}
+.r1{top:0;left:18px;}
+.r2{bottom:0;left:18px;}
+.r3{left:0;top:18px;}
+.r4{right:0;top:18px;}
+.center{
+  position:absolute;width:30px;height:30px;
+  background:radial-gradient(circle,#fff4a3,#ffd54d);
+  border-radius:50%;
+  top:30px;left:30px;
+}
+
+/* tulips */
+.tulip{position:absolute;width:70px;height:90px;}
+.tpetal{
+  position:absolute;width:35px;height:60px;
+  background:linear-gradient(#ff9bc0,#ff3d7a);
+  border-radius:50% 50% 40% 40%;
+}
+.t1{left:18px;top:10px;}
+.t2{left:0;top:20px;transform:rotate(-15deg);}
+.t3{right:0;top:20px;transform:rotate(15deg);}
+
+/* positions */
+.f1{top:80px;left:165px;}
+.f2{top:130px;left:70px;}
+.f3{top:130px;left:260px;}
+.f4{top:190px;left:20px;}
+.f5{top:190px;left:310px;}
+.f6{top:160px;left:180px;}
+.f7{top:230px;left:205px;}
+
+/* wrap */
+.wrap{
+  position:absolute;
+  bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:290px;height:210px;
+  background:linear-gradient(to top,#ffc3da,#ffe7f3);
+  clip-path:polygon(50% 100%,0 0,100% 0);
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
+}
+
+/* ribbon */
+.ribbon{
+  position:absolute;bottom:100px;left:50%;
+  transform:translateX(-50%);
+  width:160px;height:80px;
+}
+.ribbon:before,.ribbon:after{
+  content:"";position:absolute;
+  width:70px;height:70px;
+  background:#ff2f68;
+  border-radius:60% 60% 0 60%;
+}
+.ribbon:before{left:0;transform:rotate(25deg);}
+.ribbon:after{right:0;transform:rotate(-25deg);}
+.knot{
+  position:absolute;width:30px;height:30px;
+  background:#ff0f55;border-radius:50%;
+  left:65px;top:20px;
+}
+
+/* petals */
+.petal{
+  position:absolute;width:14px;height:14px;
+  background:#ff6b9d;border-radius:70% 30% 60% 40%;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  from{transform:translateY(-120vh) rotate(0);}
+  to{transform:translateY(120vh) rotate(360deg);}
+}
+
+/* sparkles */
+.sparkle{
+  position:absolute;width:6px;height:6px;
+  background:white;border-radius:50%;
+  animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+  from{opacity:.2;transform:scale(.5);}
+  to{opacity:1;transform:scale(1.4);}
+}
+
+/* surprise message */
+#secret{
+  position:absolute;
+  bottom:20px;
+  color:white;
+  font-size:22px;
+  opacity:0;
+  transition:.6s;
+}
+</style>
+</head>
+
+<body>
+
+<div class="glass"><div class="title">For My Luv, Rose</div></div>
+
+<!-- sparkles -->
+<div class="sparkle" style="top:20%;left:12%;"></div>
+<div class="sparkle" style="top:35%;left:85%;"></div>
+<div class="sparkle" style="top:70%;left:15%;"></div>
+<div class="sparkle" style="top:80%;left:90%;"></div>
+
+<!-- petals -->
+<div class="petal" style="left:10%;animation-duration:8s;"></div>
+<div class="petal" style="left:25%;animation-duration:10s;"></div>
+<div class="petal" style="left:45%;animation-duration:7s;"></div>
+<div class="petal" style="left:65%;animation-duration:9s;"></div>
+<div class="petal" style="left:85%;animation-duration:11s;"></div>
+
+<div class="scene">
+<div class="bouquet" id="bouquet">
+
+<div class="stem s1"></div><div class="stem s2"></div>
+<div class="stem s3"></div><div class="stem s4"></div>
+<div class="stem s5"></div><div class="stem s6"></div>
+<div class="stem s7"></div>
+
+<!-- blooming flowers -->
+<div class="rose f1 delay1"><div class="rpetal r1"></div><div class="rpetal r2"></div><div class="rpetal r3"></div><div class="rpetal r4"></div><div class="center"></div></div>
+<div class="rose f2 delay2"><div class="rpetal r1"></div><div class="rpetal r2"></div><div class="rpetal r3"></div><div class="rpetal r4"></div><div class="center"></div></div>
+<div class="rose f3 delay3"><div class="rpetal r1"></div><div class="rpetal r2"></div><div class="rpetal r3"></div><div class="rpetal r4"></div><div class="center"></div></div>
+
+<div class="tulip f4 delay4"><div class="tpetal t1"></div><div class="tpetal t2"></div><div class="tpetal t3"></div></div>
+<div class="tulip f5 delay5"><div class="tpetal t1"></div><div class="tpetal t2"></div><div class="tpetal t3"></div></div>
+<div class="tulip f6 delay6"><div class="tpetal t1"></div><div class="tpetal t2"></div><div class="tpetal t3"></div></div>
+<div class="tulip f7 delay7"><div class="tpetal t1"></div><div class="tpetal t2"></div><div class="tpetal t3"></div></div>
+
+<div class="wrap"></div>
+<div class="ribbon"></div>
+
+</div>
+</div>
+
+
+<script>
+const bouquet=document.getElementById("bouquet");
+
+/* cinematic parallax */
+document.addEventListener("mousemove",(e)=>{
+ let x=(e.clientX/window.innerWidth-.5)*20;
+ let y=(e.clientY/window.innerHeight-.5)*20;
+ bouquet.style.transform=`translate(${x}px,${y}px)`;
+});
+
+/* surprise message */
+document.body.addEventListener("click",()=>{
+ document.getElementById("secret").style.opacity=1;
+});
+</script>
+<div class="valentine-bottom">Happy Valentine’s ❤️</div>
+<div class="card-container" id="card">
+  <div class="card-front">Click Me 💌</div>
+  <div class="card-inside">
+    Happy Valentine’s ❤️<br><br>
+    Even if we didn’t get to meet today, I had planned to create this virtual bouquet for you and   
+    my heart is still with you. I love you Rose ❤️
+  </div>
+</div>
+<script>
+const card = document.getElementById("card");
+
+card.addEventListener("click", () => {
+  card.classList.toggle("open");
+});
+</script>
+</body>
+</html>
